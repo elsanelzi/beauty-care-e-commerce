@@ -74,8 +74,8 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
+                            <table class="table table-bordered table-striped">
+                                <thead style="background-color: lightgreen">
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Nama User</th>
@@ -88,12 +88,15 @@
                                         <th scope="col">Tanggal Bayar</th>
                                         {{-- <th scope="col">Nama Kurir</th> --}}
                                         {{-- <th scope="col">Ongkir</th> --}}
-                                        <th scope="col">Jumlah Pembayaran</th>
                                         <th scope="col">Dikonfirmasi</th>
                                         <th scope="col">Status</th>
+                                        <th scope="col">Jumlah Pembayaran</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $total = 0;
+                                    @endphp
                                     @foreach ($pay as $p)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
@@ -113,11 +116,18 @@
                                             <td>{{ $p->tanggal_pembayaran }}</td>
                                             {{-- <td>{{ $p->nama_kurir }}</td>
                                             <td>{{ number_format($p->harga_kurir) }}</td> --}}
-                                            <td>{{ number_format($p->harga*$p->kuantiti) }}</td>
                                             <td>{{ $p->dikonfirmasi }}</td>
                                             <td>{{ $p->status }}</td>
+                                            <td>{{ number_format($p->harga*$p->kuantiti-$p->diskon) }}</td>
+                                            @php
+                                                $total += $p->harga*$p->kuantiti-$p->diskon;
+                                            @endphp
                                         </tr>
                                     @endforeach
+                                    <tr class="text-danger">
+                                        <td colspan="2" style="font-size:22px"><b> Total : </b></td>
+                                        <td colspan="10" style="text-align:right; font-size:22px"><b>Rp. {{number_format($total)}}</b></td>
+                                    </tr>
                                     </tfoot>
                             </table>
                         </div>

@@ -30,7 +30,7 @@ date_default_timezone_set('Asia/Jakarta');
             <div class="col-md-4"></div>
         </div>
     </div>
-    <hr style="color:black; font-weight:bold">
+   <hr style="border: 2px solid black;">
      <div class="card-body">
             <div class="d-flex justify-content-center mb-3 mt-3">
             <h2 style="font-weight: bold"> LAPORAN PENDAPATAN KLINIK</h2>
@@ -45,13 +45,16 @@ date_default_timezone_set('Asia/Jakarta');
                             <th scope="col">Nama Barang</th>
                             <th scope="col">Kuantiti</th>
                             <th scope="col">Harga</th>
+                             <th scope="col">Diskon</th>
                             {{-- <th scope="col">Nama Kurir</th>
                             <th scope="col">Ongkir</th> --}}
                             <th scope="col">Jumlah Pembayaran</th>
                         </tr>
                     </thead>
                     <tbody>
-
+                        @php
+                            $total = 0;
+                        @endphp
                         @foreach ($print as $p)
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
@@ -62,11 +65,19 @@ date_default_timezone_set('Asia/Jakarta');
                                 <td>{{ number_format($p->harga_kurir) }}</td> --}}
                                  <td>{{$p->kuantiti}}</td> 
                                  <td>Rp. {{ number_format($p->harga, 0, '.', '.') }}</td>
-                               <td>Rp. {{ number_format($p->harga*$p->kuantiti, 0, '.', '.') }}</td>
+                                   <td>Rp. {{ number_format($p->diskon, 0, '.', '.') }}</td>
+                               <td>Rp. {{ number_format($p->harga*$p->kuantiti-$p->diskon, 0, '.', '.') }}</td>
                                 {{-- <td>{{ number_format($p->total_akhir, 0, '.', '.') }}</td> --}}
+                                @php
+                                    $total += $p->harga*$p->kuantiti-$p->diskon;
+                                @endphp
                             </tr>
 
                         @endforeach
+                         <tr class="text-danger">
+                            <td colspan="2" style="font-size:18px"><b> Total : </b></td>
+                            <td colspan="10" style="text-align:right; font-size:18px"><b>Rp. {{number_format($total)}}</b></td>
+                         </tr>
                     </tbody>
                 </table>
                 @php

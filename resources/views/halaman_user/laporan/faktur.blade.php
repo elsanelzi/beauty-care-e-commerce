@@ -5,15 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Laporan Pendapatan Klinik Tahun <?=date('Y')?> bulan <?= date('M')?></title>
     @include('halaman_admin.layouts.navbar')
 </head>
 @include('halaman_admin.layouts.script')
 
 <body onload="print()">
-
     <html>
-
+    <div class="head" style="margin-top:70px; margin-bottom:20px;">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2">  
+                <img src="{{ asset('gambar/brs.jpeg') }}" class="logo" width="120px; heigh:120px;">
+            </div>
+            <div class="col-md-4" style="margin-left:10px; text-align:center">
+                <div class="txt">
+                    <h2 style="font-weight: bold">BRS Beauty Padang</h2>
+                    <p>Jalan Gurun Laweh, Nanggalo, Kota Padang</p>
+                    <p>Provinsi Sumatera Barat, 25172</p>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+          <hr style="border: 2px solid black;">
+    </div>
     <head>
         <title>Faktur Pembayaran</title>
         <style>
@@ -77,15 +92,15 @@
                 <table width="70%">
                     <tr>
                         <td>
-                            <font style="font-family: Tahoma; font-size:30px;"><b> FAKTUR </b>
-                            </font>
+                            {{-- <font style="font-family: Tahoma; font-size:30px; text-align:center"><b> FAKTUR </b>
+                            </font> --}}
                         </td>
         </div>
         <!-- </center>    -->
         </tr>
         <tr>
             <td colspan="2">
-                <hr style="border: 2px solid black;">
+                {{-- <hr style="border: 2px solid black;"> --}}
             </td>
         </tr>
         </table>
@@ -94,6 +109,9 @@
             date_default_timezone_set('Asia/Jakarta');
             $tgl = date('d-m-Y');
         @endphp
+
+        <p> <font style="font-family: Tahoma; font-size:30px; text-align:center; margin-bottom:15px;"><b> FAKTUR </b>
+                            </font></p>
 
         <table style='width:950px; font-size:15pt; font-family:calibri; border-collapse: collapse;' border='0'>
             <td width='70%' align='left' style='padding-right:80px; vertical-align:top'>
@@ -158,42 +176,55 @@
         <table cellspacing='0'
             style='width:950px; font-size:15pt; font-family:calibri;  border-collapse: collapse;   margin-top: 50px;'>
             <tr>
-                <td colspan='6'>
-                    <div style='text-align:right'>total akhir : </div>
+                <td colspan='3'>
+                    <div style='text-align:left'>Total akhir : </div>
                 </td>
-                <td style='text-align:right'>
+                <td colspan='3' style='text-align:right'>
                     Rp. {{ number_format($total) }}
                 </td>
             </tr>
 
             <tr>
-                <td colspan='7'>
-                    <div style='text-align:right'>Terbilang :
+                <td colspan='3'>
+                    <div style='text-align:left'>
+                        Terbilang :
+                    </div>
+                </td>
+                 <td colspan='3'>
+                    <div style='text-align:right'>
                         {{ terbaik($total) }}
                     </div>
                 </td>
             </tr>
             <tr>
-                <td colspan='6'>
-                    <div style='text-align:right'>Total Yang Harus Di Bayar Adalah : </div>
+                <td colspan='3'>
+                    <div style='text-align:left'>Total Yang Harus Di Bayar Adalah : </div>
                 </td>
-                <td style='text-align:right'>
+                <td colspan='3' style='text-align:right'>
                     <b>
                         Rp. {{ number_format($total) }}
                         {{-- <hr style="border: 2px solid black; "> --}}
+                </td>
+            </tr>
+             <tr>
+                <td colspan='3'>
+                    <div style='text-align:left'></div>
+                </td>
+                <td colspan='3' style='text-align:right'>
+                    <b>
+                       <hr style=" border: 2px solid black; margin-right: 15%;" width="100%">
                 </td>
             </tr>
         </table>
         <tr class="float-right">
             <center>
                 <td colspan="2">
-                    <hr style=" border: 2px solid black; margin-right: 15%;" width="40%">
+                    {{-- <hr style=" border: 2px solid black; margin-right: 15%;" width="40%"> --}}
                 </td>
             </center>
         </tr>
-
-        <table style='width:650; font-size:7pt;' cellspacing='2'>
-            <tr>
+        <table style='width:950px; font-size:15pt; font-family:calibri;  border-collapse: collapse;   margin-top: 50px;'>
+             <tr>
                 <td class=" mb-6" style='vertical-align:top' width='13%' align='right'>
                     <span style='font-size:15pt;'>Hormat Kami</span></br>
                     {{-- @php
@@ -201,7 +232,7 @@
                             ->where('id', $faktur->produks->id_user)
                             ->first();
                     @endphp --}}
-                    </br>
+                    </br><br><br>
                     <span style='font-size:15pt;'>BPS Beauty Care</span></br>
                 </td>
             </tr>
