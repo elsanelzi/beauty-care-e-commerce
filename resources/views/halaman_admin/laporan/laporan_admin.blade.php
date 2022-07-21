@@ -118,9 +118,9 @@
                                             <td>{{ number_format($p->harga_kurir) }}</td> --}}
                                             <td>{{ $p->dikonfirmasi }}</td>
                                             <td>{{ $p->status }}</td>
-                                            <td>{{ number_format($p->harga*$p->kuantiti-$p->diskon) }}</td>
+                                            <td>{{ number_format(($p->harga-$p->diskon)*$p->kuantiti) }}</td>
                                             @php
-                                                $total += $p->harga*$p->kuantiti-$p->diskon;
+                                                $total += ($p->harga-$p->diskon)*$p->kuantiti;
                                             @endphp
                                         </tr>
                                     @endforeach

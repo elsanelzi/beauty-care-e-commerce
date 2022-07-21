@@ -54,10 +54,6 @@ class PembayaranController extends Controller
                 'bukti_pembayaran' => 'image|mimes:jpeg,png,jpg,gif,svg',
             ]);
 
-            $besar_diskon = 25000;
-            $total_akhir = $request->total_akhir - $besar_diskon;
-
-
             if ($request->tipe_pembayaran == 'cod') {
                 DB::table('detail_pembayaran')->insert([
                     'id_pembayaran' => $id,
@@ -67,7 +63,7 @@ class PembayaranController extends Controller
                     'alamat' => $request->alamat,
                     'kuantiti' => $pesan['kuantiti'],
                     'tanggal_pembayaran' => $date,
-                    'total_akhir' => $total_akhir,
+                    'total_akhir' => $request->total_akhir,
                 ]);
             } else {
                 $bukti = $request->file('bukti_pembayaran');
@@ -80,7 +76,7 @@ class PembayaranController extends Controller
                     'alamat' => $request->alamat,
                     'kuantiti' => $pesan['kuantiti'],
                     'tanggal_pembayaran' => $date,
-                    'total_akhir' => $total_akhir,
+                    'total_akhir' => $request->total_akhir,
                 ]);
             }
         }

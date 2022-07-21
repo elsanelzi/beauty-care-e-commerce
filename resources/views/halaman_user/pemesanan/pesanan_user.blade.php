@@ -28,7 +28,7 @@
                         <th>Nama Barang</th>
                         <th>Kuantiti</th>
                         <th>Harga</th>
-                        <th>Diskon</th>
+                        {{-- <th>Diskon</th> --}}
                         <th>Total</th>
                         <th>Konfirmasi Admin</th>
                         <th>Hapus Pesan</th>
@@ -44,11 +44,11 @@
                             <td>{{ $p->name }}</td>
                             <td>{{ $p->barang->nama_barang }}</td>
                             <td>{{ $p->kuantiti }}</td>
-                            <td>Rp. {{ number_format($p->harga, 0, '.', '.') }}</td>
-                            <td>{{ $p->diskon }}</td>
-                            <td>Rp. {{ number_format($p->harga * $p->kuantiti - $p->diskon, 0, '.', '.') }}</td>
+                            <td>Rp. {{ number_format($p->harga - $p->diskon, 0, '.', '.') }}</td>
+                            {{-- <td>{{ $p->diskon }}</td> --}}
+                            <td>Rp. {{ number_format(($p->harga - $p->diskon) * $p->kuantiti, 0, '.', '.') }}</td>
                             @php
-                                $total = $p->harga * $p->kuantiti - $p->diskon;
+                                $total = ($p->harga - $p->diskon) * $p->kuantiti;
                                 $grandtotal += $total;
                             @endphp
                             <td>

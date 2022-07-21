@@ -53,7 +53,12 @@
                                     @csrf
                                     <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
                                     <input type="hidden" name="id_persediaan" value="{{ $detail->persediaan->id_persediaan }}">
-                                    <input type="hidden" name="harga" value="{{ $detail->persediaan->harga }}">
+									@if ($detail->persediaan->diskon != 0)
+							  <input type="hidden" name="harga" value="{{ $detail->persediaan->harga - $detail->persediaan->diskon }}">
+							@else
+						  <input type="hidden" name="harga" value="{{ $detail->persediaan->harga }}">
+							@endif
+                                  
                                     <input type="hidden" name="kode_barang" value="{{ $detail->kode_barang }}">
 
                                      <div class="itemtype" style="margin-bottom: 40px">
@@ -87,7 +92,12 @@
 
 							<div class="fh5co-tab-content tab-content active" data-tab-content="1">
 								<div class="col-md-10 col-md-offset-1">
-									<span class="price">Rp. {{ number_format($detail->persediaan->harga, 0, '.', '.') }}</span>
+										@if ($detail->persediaan->diskon != 0)
+								<span class="price">Rp. {{ number_format($detail->persediaan->harga-$detail->persediaan->diskon, 0, '.', '.') }}</span>
+							@else
+						<span class="price">Rp. {{ number_format($detail->persediaan->harga, 0, '.', '.') }}</span>
+							@endif
+									
 									<h2>{{ $detail->nama_barang }}</h2>
 									<p>{{ $detail->deskripsi }}.</p>
 

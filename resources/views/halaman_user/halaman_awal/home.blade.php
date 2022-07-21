@@ -31,7 +31,12 @@
 		   			<div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
 		   				<div class="slider-text-inner">
 		   					<div class="desc">
-		   						<span class="price">Rp.{{ number_format($b->harga, 0, '.', '.') }}</span>
+								  @if ($b->diskon != 0)
+								<span style="text-decoration: line-through grey; color:grey; float:left; margin-right:15px;"> Rp. {{ number_format($b->harga, 0, '.', '.') }}</span>
+								<span class="price">Rp.{{ number_format($b->harga-$b->diskon, 0, '.', '.') }}</span>
+							@else
+							<span class="price">Rp.{{ number_format($b->harga, 0, '.', '.') }}</span>
+							@endif
 		   						<h2>{{ $b->nama_barang }}</h2>
 		   						<p>{{ $b->deskripsi }}.</p>
 			   					<p><a href="{{ route('detail_barang', $b->id_barang) }}" class="btn btn-primary btn-outline btn-lg">Purchase Now</a></p>
@@ -108,7 +113,14 @@
 						</div>
 						<div class="desc">
 							<h3><a href="{{ route('detail_barang', $b->id_barang) }}">{{ $b->nama_barang }}</a></h3>
+							<div class="text-center">
+							@if ($b->diskon != 0)
+								<span style="text-decoration: line-through grey; color:grey; float:left; margin-left:30px;"> Rp. {{ number_format($b->harga, 0, '.', '.') }}</span>
+								<span class="price" style="margin-left:-20px;">Rp.{{ number_format($b->harga-$b->diskon, 0, '.', '.') }}</span>
+							@else
 							<span class="price">Rp.{{ number_format($b->harga, 0, '.', '.') }}</span>
+							@endif
+							</div>
 						</div>
 					</div>
 				</div>

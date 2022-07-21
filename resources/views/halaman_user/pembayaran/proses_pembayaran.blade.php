@@ -32,12 +32,12 @@
                         @endphp
                         @foreach ($proses as $p)
                             @php
-                                 $total = $p->harga * $p->kuantiti - $p->diskon;
+                                 $total = ($p->harga - $p->diskon) * $p->kuantiti;
                                 $grandtotal += $total;
                             @endphp
                         @endforeach
                         <td>Total</td>
-                        <td id="total_harga">Rp{{ number_format($grandtotal) }}</td>
+                        <td id="total_harga">Rp  {{ number_format($grandtotal) }}</td>
                     </tr>
                 </table>
                 <div class="personal-details" style="margin-bottom: 40px">

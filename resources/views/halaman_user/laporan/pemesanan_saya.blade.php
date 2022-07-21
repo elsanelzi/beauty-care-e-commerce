@@ -46,7 +46,12 @@
                             <td>{{ $p->detail->kota }}</td>
                             <td>{{ $p->detail->alamat }}</td>
                             <td>{{ $p->barang->nama_barang }}</td>
-                            <td>Rp. {{ number_format($p->persediaan->harga, 0, '.', '.') }}</td>
+                            @if ($p->persediaan->diskon != 0)
+                                 <td>Rp. {{ number_format($p->persediaan->harga - $p->persediaan->diskon, 0, '.', '.') }}</td>
+                            @else
+                              <td>Rp. {{ number_format($p->persediaan->harga, 0, '.', '.') }}</td>
+                            @endif
+                           
                             <td>{{ $p->detail->kuantiti }}</td>
                             @if($p->id_kurir != NULL)
                             {{-- <td>{{ $p->kurir->nama_kurir }}</td>
@@ -55,7 +60,7 @@
                             {{-- <td>-</td>
                             <td>-</td> --}}
                             @endif
-                            <td>Rp. {{ number_format($p->persediaan->harga*$p->detail->kuantiti, 0, '.', '.') }}</td>
+                            <td>Rp. {{ number_format(($p->persediaan->harga- $p->persediaan->diskon)*$p->detail->kuantiti, 0, '.', '.') }}</td>
                             {{-- <td>Rp. {{ number_format($p->detail->total_akhir, 0, '.', '.') }}</td> --}}
                             <td>
                                 @if ($p->status == 'pending')

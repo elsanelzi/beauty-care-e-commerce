@@ -45,7 +45,6 @@ date_default_timezone_set('Asia/Jakarta');
                             <th scope="col">Nama Barang</th>
                             <th scope="col">Kuantiti</th>
                             <th scope="col">Harga</th>
-                             <th scope="col">Diskon</th>
                             {{-- <th scope="col">Nama Kurir</th>
                             <th scope="col">Ongkir</th> --}}
                             <th scope="col">Jumlah Pembayaran</th>
@@ -64,12 +63,11 @@ date_default_timezone_set('Asia/Jakarta');
                                 {{-- <td>{{ $p->nama_kurir }}</td>
                                 <td>{{ number_format($p->harga_kurir) }}</td> --}}
                                  <td>{{$p->kuantiti}}</td> 
-                                 <td>Rp. {{ number_format($p->harga, 0, '.', '.') }}</td>
-                                   <td>Rp. {{ number_format($p->diskon, 0, '.', '.') }}</td>
-                               <td>Rp. {{ number_format($p->harga*$p->kuantiti-$p->diskon, 0, '.', '.') }}</td>
+                                 <td>Rp. {{ number_format($p->harga - $p->diskon, 0, '.', '.') }}</td>
+                               <td>Rp. {{ number_format(($p->harga-$p->diskon)*$p->kuantiti, 0, '.', '.') }}</td>
                                 {{-- <td>{{ number_format($p->total_akhir, 0, '.', '.') }}</td> --}}
                                 @php
-                                    $total += $p->harga*$p->kuantiti-$p->diskon;
+                                    $total += ($p->harga-$p->diskon)*$p->kuantiti;
                                 @endphp
                             </tr>
 

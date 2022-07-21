@@ -138,7 +138,7 @@
                 <td width='30%'>Nama Barang</td>
                 <td width='23%'>Harga Per Barang</td>
                 <td width='14%'>Qty</td>
-                <td width='7%'>Discount</td>
+                <td width='14%'>Total Harga</td>
                  <td width='8%'>Tipe Pembayaran</td>
             </tr>
             @php
@@ -165,9 +165,9 @@
                         @endif
                     </td> --}}
                     <td>{{ $i->nama_barang }}</td>
-                    <td>{{ number_format($i->harga) }}</td>
+                    <td>{{ number_format($i->harga - $i->diskon) }}</td>
                     <td>{{ $i->kuantiti }}</td>
-                    <td>{{ $i->diskon }}</td>
+                    <td>{{ number_format(($i->harga - $i->diskon)* $i->kuantiti) }}</td>
                     <td>{{ $i->tipe_pembayaran }}</td>
                 </tr>
             @endforeach

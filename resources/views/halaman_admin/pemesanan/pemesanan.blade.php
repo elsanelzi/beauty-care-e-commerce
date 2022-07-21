@@ -46,8 +46,8 @@
                                 <td>{{ $pesan->user->name }}</td>
                                 <td>{{ $pesan->barang->nama_barang }}</td>
                                 <td>{{ $pesan->kuantiti }}</td>
-                                <td>Rp.{{ number_format($pesan->persediaan->harga, 0, '.', '.') }}</td>
-                                <td>Rp.{{ number_format($pesan->persediaan->harga * $pesan->kuantiti, 0, '.', '.') }} </td>
+                                <td>Rp.{{ number_format($pesan->persediaan->harga - $pesan->persediaan->diskon, 0, '.', '.') }}</td>
+                                <td>Rp.{{ number_format(($pesan->persediaan->harga - $pesan->persediaan->diskon) * $pesan->kuantiti, 0, '.', '.') }} </td>
                                 <td>
                                     @if ($pesan->status == 'pending')
                                         <a href="{{ route('konfirmasi', $pesan->id_pemesanan) }}"

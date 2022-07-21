@@ -53,8 +53,8 @@
                                     <td>{{ $alamat->no_hp }}</td>
                                     <td>{{ $bayar->barang->nama_barang }}</td>
                                     <td>{{ $bayar->detail->kuantiti }}</td>
-                                    <td>Rp.{{ number_format($bayar->persediaan->harga) }}</td>
-                                     <td>Rp.{{ number_format($bayar->persediaan->harga * $bayar->detail->kuantiti) }}</td>
+                                    <td>Rp.{{ number_format($bayar->persediaan->harga - $bayar->persediaan->diskon) }}</td>
+                                     <td>Rp.{{ number_format(($bayar->persediaan->harga - $bayar->persediaan->diskon) * $bayar->detail->kuantiti) }}</td>
                                     {{-- <td>Rp.{{ number_format($bayar->detail->total_akhir) }} </td> --}}
                                     <td>
                                         @if ($bayar->status == 'pending')
