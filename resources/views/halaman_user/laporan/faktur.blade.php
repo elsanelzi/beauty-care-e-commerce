@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laporan Pendapatan Klinik Tahun <?=date('Y')?> bulan <?= date('M')?></title>
+    <title>Laporan Pendapatan Klinik Tahun <?= date('Y') ?> bulan <?= date('M') ?></title>
     @include('halaman_admin.layouts.navbar')
 </head>
 @include('halaman_admin.layouts.script')
@@ -15,7 +15,7 @@
     <div class="head" style="margin-top:70px; margin-bottom:20px;">
         <div class="row">
             <div class="col-md-2"></div>
-            <div class="col-md-2">  
+            <div class="col-md-2">
                 <img src="{{ asset('gambar/brs.jpeg') }}" class="logo" width="120px; heigh:120px;">
             </div>
             <div class="col-md-4" style="margin-left:10px; text-align:center">
@@ -27,8 +27,9 @@
             </div>
             <div class="col-md-4"></div>
         </div>
-          <hr style="border: 2px solid black;">
+        <hr style="border: 2px solid black;">
     </div>
+
     <head>
         <title>Faktur Pembayaran</title>
         <style>
@@ -41,7 +42,6 @@
                 padding-left: 5px;
                 border: 1px solid black;
             }
-
         </style>
     </head>
 
@@ -110,8 +110,10 @@
             $tgl = date('d-m-Y');
         @endphp
 
-        <p> <font style="font-family: Tahoma; font-size:30px; text-align:center; margin-bottom:15px;"><b> FAKTUR </b>
-                            </font></p>
+        <p>
+            <font style="font-family: Tahoma; font-size:30px; text-align:center; margin-bottom:15px;"><b> FAKTUR </b>
+            </font>
+        </p>
 
         <table style='width:950px; font-size:15pt; font-family:calibri; border-collapse: collapse;' border='0'>
             <td width='70%' align='left' style='padding-right:80px; vertical-align:top'>
@@ -125,7 +127,6 @@
                 <b><span style='font-size:20pt'></span></b></br>
                 Nama Pelanggan : {{ $nama->name }}</br>
                 Nomor telepon : {{ $nama->no_hp }}</br>
-                Tipe Pembayaran :{{ $nama->tipe_pembayaran }}</br>
             </td>
         </table>
         <table cellspacing='0' style='width:950px; font-size:15pt; font-family:calibri;  border-collapse: collapse;'
@@ -133,13 +134,13 @@
 
             <tr align='center'>
                 <td width='20%'>No</td>
-                {{-- <td width='20%'>Nama Kurir</td>
-                <td width='20%'>Ongkir</td> --}}
+                <td width='20%'>Nama Kurir</td>
+                <td width='20%'>Ongkir</td>
                 <td width='30%'>Nama Barang</td>
                 <td width='23%'>Harga Per Barang</td>
                 <td width='14%'>Qty</td>
                 <td width='14%'>Total Harga</td>
-                 <td width='8%'>Tipe Pembayaran</td>
+                <td width='8%'>Tipe Pembayaran</td>
             </tr>
             @php
                 $total = 0;
@@ -150,7 +151,7 @@
                 @endphp
                 <tr align='center'>
                     <td>{{ $loop->iteration }}</td>
-                    {{-- <td>
+                    <td>
                         @if ($i->nama_kurir != null)
                             {{ $i->nama_kurir }}
                         @else
@@ -159,15 +160,15 @@
                     </td>
                     <td>
                         @if ($i->nama_kurir != null)
-                            {{ $i->harga_kurir }}
+                            {{ number_format($i->harga_kurir) }}
                         @else
                             Pesan Tanpa Kurir
                         @endif
-                    </td> --}}
+                    </td>
                     <td>{{ $i->nama_barang }}</td>
                     <td>{{ number_format($i->harga - $i->diskon) }}</td>
                     <td>{{ $i->kuantiti }}</td>
-                    <td>{{ number_format(($i->harga - $i->diskon)* $i->kuantiti) }}</td>
+                    <td>{{ number_format(($i->harga - $i->diskon) * $i->kuantiti) }}</td>
                     <td>{{ $i->tipe_pembayaran }}</td>
                 </tr>
             @endforeach
@@ -190,7 +191,7 @@
                         Terbilang :
                     </div>
                 </td>
-                 <td colspan='3'>
+                <td colspan='3'>
                     <div style='text-align:right'>
                         {{ terbaik($total) }}
                     </div>
@@ -206,13 +207,13 @@
                         {{-- <hr style="border: 2px solid black; "> --}}
                 </td>
             </tr>
-             <tr>
+            <tr>
                 <td colspan='3'>
                     <div style='text-align:left'></div>
                 </td>
                 <td colspan='3' style='text-align:right'>
                     <b>
-                       <hr style=" border: 2px solid black; margin-right: 15%;" width="100%">
+                        <hr style=" border: 2px solid black; margin-right: 15%;" width="100%">
                 </td>
             </tr>
         </table>
@@ -223,8 +224,9 @@
                 </td>
             </center>
         </tr>
-        <table style='width:950px; font-size:15pt; font-family:calibri;  border-collapse: collapse;   margin-top: 50px;'>
-             <tr>
+        <table
+            style='width:950px; font-size:15pt; font-family:calibri;  border-collapse: collapse;   margin-top: 50px;'>
+            <tr>
                 <td class=" mb-6" style='vertical-align:top' width='13%' align='right'>
                     <span style='font-size:15pt;'>Hormat Kami</span></br>
                     {{-- @php

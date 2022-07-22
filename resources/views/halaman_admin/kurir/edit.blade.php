@@ -45,9 +45,22 @@
 
                         <div class="mb-3">
                             <label for="1" class="form-label">Harga Kurir</label>
-                            <input type="text" name="harga" value="{{ $edit->harga }}" class="form-control" id="1"
-                                required>
+                            <input type="text" name="harga" value="{{ $edit->harga }}" class="form-control"
+                                id="1" required>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="1" class="form-label">Wilayah Untuk Kurir</label>
+                            <input type="text" name="harga" value="{{ $edit->wilayah }}" class="form-control"
+                                id="1" required>
+                        </div>
+
+                        <label for="1" class="form-label">Wilayah Untuk Kurir</label>
+                        <select class="form-control" name="wilayah" aria-label="Default select example">
+                            <option value="{{ $edit->wilayah }}">{{ $edit->wilayah }}</option>
+                            <option value="Kota Padang">Kota Padang</option>
+                            <option value="Luar Kota Padang">Luar Kota Padang</option>
+                        </select>
 
                         <button type="submit" class="btn btn-primary">Update</button>
                         <a href="{{ route('kurir') }}" class="btn btn-warning">back</a>

@@ -47,6 +47,13 @@
                             <input type="text" name="harga" class="form-control" id="1" required>
                         </div>
 
+                        <label for="1" class="form-label">Wilayah Untuk Kurir</label>
+                        <select class="form-control" name="wilayah" aria-label="Default select example">
+                            <option selected>Pilih Wilayah kurir</option>
+                            <option value="Kota Padang">Kota Padang</option>
+                            <option value="Luar Kota Padang">Luar Kota Padang</option>
+                        </select>
+                        <br>
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <a href="{{ route('kurir') }}" class="btn btn-warning">back</a>
                     </form>

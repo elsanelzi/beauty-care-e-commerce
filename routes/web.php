@@ -36,8 +36,7 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('admin', [AuthController::class, 'admin'])->name('admin');
     Route::get('karyawan', [AuthController::class, 'karyawan'])->name('karyawan');
-    // Route::get('kepsek', [AuthController::class, 'kepsek'])->name('kepsek');
-    // Route::get('ketua_yayasan', [AuthController::class, 'ketua_yayasan'])->name('ketua_yayasan');
+    Route::get('user', [AuthController::class, 'user'])->name('user');
     Route::POST('logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('dashboard', [KelolaAkunController::class, 'dashboard'])->name('dashboard');
@@ -80,7 +79,10 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::prefix('pemesanan')->group(function () {
+        Route::POST('ajax_kota', [PemesananController::class, 'ajax_kota'])->name('ajax_kota');
+        Route::POST('ajax_harga', [PemesananController::class, 'ajax_harga'])->name('ajax_harga');
         Route::POST('proses_pemesanan', [PemesananController::class, 'proses_pemesanan'])->name('proses_pemesanan');
+        Route::get('detail_barang/{id}', [BarangController::class, 'show'])->name('detail_barang');
         Route::get('pesanan_user', [PemesananController::class, 'pesanan_user'])->name('pesanan_user');
         Route::DELETE('hapus/{id_pemesanan}', [PemesananController::class, 'hapus'])->name('pesan_hapus');
         Route::get('konfirmasi_pemesanan', [PemesananController::class, 'kelola_pemesanan'])->name('kelola_pemesanan');

@@ -17,6 +17,7 @@ class CreateKurirTable extends Migration
             $table->bigIncrements('id_kurir');
             $table->string('nama_kurir', '100');
             $table->bigInteger('harga');
+            $table->string('wilayah', '50');
             $table->timestamps();
         });
     }

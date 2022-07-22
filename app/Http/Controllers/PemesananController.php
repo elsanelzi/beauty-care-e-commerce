@@ -75,4 +75,24 @@ class PemesananController extends Controller
         Alert::error('Data Berhasil', 'Data Berhasil dihapus');
         return redirect()->route('pesanan_user');
     }
+
+
+    public function ajax_kota(Request $request)
+    {
+        if ($request->kota) {
+            $ajax = DB::table('kurir')->where('wilayah', '=', $request->kota)->select('kurir.*')->get();
+            $data = [];
+            foreach ($ajax as $key) {
+                $data[] = $key;
+            }
+            return response()->json($data);
+        }
+    }
+
+
+    public function ajax_harga(Request $request)
+    {
+        $data = DB::table('kurir')->where('id_kurir', '=', $request->idKurir)->select('kurir.*')->first();
+        return response()->json($data);
+    }
 }

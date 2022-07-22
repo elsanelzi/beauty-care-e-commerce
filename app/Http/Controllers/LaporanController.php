@@ -13,7 +13,22 @@ class LaporanController extends Controller
 {
     public function pemesanan_saya()
     {
-        $pembayaran = Pembayaran::all()->where('id_user', Auth::user()->id);
+        $pembayaran = Pembayaran::leftjoin('detail_pembayaran', 'pembayaran.id_pembayaran', '=', 'detail_pembayaran.id_pembayaran')->leftjoin('users', 'pembayaran.id_user', '=', 'users.id')
+            ->leftjoin('persediaan', 'pembayaran.id_persediaan', '=', 'persediaan.id_persediaan')->leftjoin('barang', 'pembayaran.kode_barang', '=', 'barang.kode_barang')
+            ->leftjoin('kurir', 'pembayaran.id_kurir', '=', 'kurir.id_kurir')
+            ->select(
+                'users.name',
+                'detail_pembayaran.kota',
+                'detail_pembayaran.alamat',
+                'detail_pembayaran.kuantiti',
+                'barang.nama_barang',
+                'persediaan.harga',
+                'pembayaran.status',
+                'pembayaran.id_pembayaran',
+                'kurir.nama_kurir',
+                'kurir.harga as harga_kurir',
+            )
+            ->get();
         return view('halaman_user.laporan.pemesanan_saya', compact('pembayaran'));
     }
 

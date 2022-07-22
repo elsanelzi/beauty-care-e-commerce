@@ -41,6 +41,7 @@ class KurirController extends Controller
         $tambah = new Kurir;
         $tambah->nama_kurir = $request->nama_kurir;
         $tambah->harga = $request->harga;
+        $tambah->wilayah = $request->wilayah;
         $tambah->save();
         Alert::success('Kurir Berhasil', 'Data Berhasil Ditambah');
         return redirect()->route('kurir');
@@ -81,6 +82,7 @@ class KurirController extends Controller
         $update = Kurir::find($id_kurir);
         $update->nama_kurir = $request->nama_kurir;
         $update->harga = $request->harga;
+        $update->wilayah = $request->wilayah;
         $update->save();
         Alert::success('Kurir Berhasil', 'Data Berhasil Diedit');
         return redirect()->route('kurir');
