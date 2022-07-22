@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Jul 2022 pada 00.26
--- Versi server: 10.4.21-MariaDB
--- Versi PHP: 8.0.10
+-- Waktu pembuatan: 22 Jul 2022 pada 05.49
+-- Versi server: 10.4.11-MariaDB
+-- Versi PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -55,8 +56,8 @@ CREATE TABLE `barang` (
   `id_barang` bigint(20) UNSIGNED NOT NULL,
   `id_user` bigint(20) NOT NULL,
   `kode_barang` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_barang` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gambar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_barang` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gambar` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `deskripsi` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -67,8 +68,8 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id_barang`, `id_user`, `kode_barang`, `nama_barang`, `gambar`, `deskripsi`, `created_at`, `updated_at`) VALUES
-(3, 1, 'A001', 'DSO', '1654788074.jpg', 'Perhitungan DSO tersebut dengan cara membagi total piutang selama jangka waktu dengan total penjualan kredit bersih. Hasil perhitungan tersebut akan dikalikan dengan jumlah hari pada periode tersebut. Selain itu pengukuran DSO ini memiliki jangka waktu se', '2022-06-09 08:21:14', '2022-06-09 08:21:58'),
-(4, 1, 'A002', 'Whitening kety', '1654788179.jpg', 'Cipher FEAL (diikuti oleh Khufu dan Khafre ) memperkenalkan praktik pemutihan kunci menggunakan bagian dari kunci yang sama yang digunakan di sisa cipher. Ini tidak menawarkan perlindungan tambahan dari serangan brute force, tetapi dapat membuat serangan ', '2022-06-09 08:22:59', '2022-06-09 08:22:59');
+(3, 1, 'A001', 'DSO', '1654788074.jpg', 'Perhitungan DSO tersebut dengan cara membagi total piutang selama jangka waktu dengan total penjualan kredit bersih. Hasil perhitungan tersebut akan dikalikan dengan jumlah hari pada periode tersebut. Selain itu pengukuran DSO ini memiliki jangka waktu secara bulanan, tahunan, maupun triwulan. Apabila hasil days sales outstanding rendah maka bisnis Anda hanya perlu beberapa hari menagih piutangnya.', '2022-06-09 08:21:14', '2022-06-09 08:21:58'),
+(4, 1, 'A002', 'Whitening kety', '1654788179.jpg', 'Cipher FEAL (diikuti oleh Khufu dan Khafre ) memperkenalkan praktik pemutihan kunci menggunakan bagian dari kunci yang sama yang digunakan di sisa cipher. Ini tidak menawarkan perlindungan tambahan dari serangan brute force, tetapi dapat membuat serangan lain lebih sulit. Dalam cipher Feistel atau algoritme serupa, pemutihan kunci dapat meningkatkan keamanan dengan menyembunyikan input spesifik ke fungsi putaran pertama dan terakhir. Secara khusus, itu tidak rentan terhadap serangan meet-in-the-middle . Bentuk pemutihan kunci ini telah diadopsi sebagai fitur dari banyak sandi blok kemudian, termasuk AES , MARS , RC6 , dan Twofish .', '2022-06-09 08:22:59', '2022-06-09 08:22:59');
 
 -- --------------------------------------------------------
 
@@ -77,14 +78,15 @@ INSERT INTO `barang` (`id_barang`, `id_user`, `kode_barang`, `nama_barang`, `gam
 --
 
 CREATE TABLE `detail_pembayaran` (
+  `id_detail_pembayaran` int(20) NOT NULL,
   `id_pembayaran` bigint(20) NOT NULL,
-  `tipe_pembayaran` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bukti_pembayaran` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `kota` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipe_pembayaran` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bukti_pembayaran` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kota` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kuantiti` int(11) NOT NULL,
+  `kuantiti` bigint(20) NOT NULL,
   `tanggal_pembayaran` date NOT NULL,
-  `total_akhir` int(11) NOT NULL,
+  `total_akhir` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -93,13 +95,15 @@ CREATE TABLE `detail_pembayaran` (
 -- Dumping data untuk tabel `detail_pembayaran`
 --
 
-INSERT INTO `detail_pembayaran` (`id_pembayaran`, `tipe_pembayaran`, `bukti_pembayaran`, `kota`, `alamat`, `kuantiti`, `tanggal_pembayaran`, `total_akhir`, `created_at`, `updated_at`) VALUES
-(1, 'cod', '', 'Kota Padang', 'Padang Kuranji', 3, '2022-06-02', 82000, NULL, NULL),
-(2, 'cod', '', 'Kota Padang', 'Padang Kuranji', 1, '2022-06-02', 82000, NULL, NULL),
-(3, 'transfer', '1656833895.jpg', 'Kota Padang', 'Jati', 2, '2022-07-03', 58000, NULL, NULL),
-(4, 'transfer', '1656833895.jpg', 'Kota Padang', 'Jati', 1, '2022-07-03', 58000, NULL, NULL),
-(5, 'transfer', '1656834475.jpg', 'Luar Kota Padang', 'Bukittinggi', 5, '2022-07-03', 130000, NULL, NULL),
-(6, 'transfer', '1656834475.jpg', 'Luar Kota Padang', 'Bukittinggi', 1, '2022-07-03', 130000, NULL, NULL);
+INSERT INTO `detail_pembayaran` (`id_detail_pembayaran`, `id_pembayaran`, `tipe_pembayaran`, `bukti_pembayaran`, `kota`, `alamat`, `kuantiti`, `tanggal_pembayaran`, `total_akhir`, `created_at`, `updated_at`) VALUES
+(1, 1, 'cod', '', 'Kota Padang', 'Padang Kuranji', 3, '2022-06-02', 82000, NULL, NULL),
+(2, 2, 'cod', '', 'Kota Padang', 'Padang Kuranji', 1, '2022-06-02', 82000, NULL, NULL),
+(3, 3, 'transfer', '1656833895.jpg', 'Kota Padang', 'Jati', 2, '2022-07-03', 58000, NULL, NULL),
+(4, 4, 'transfer', '1656833895.jpg', 'Kota Padang', 'Jati', 1, '2022-07-03', 58000, NULL, NULL),
+(5, 5, 'transfer', '1656834475.jpg', 'Luar Kota Padang', 'Bukittinggi', 5, '2022-07-03', 130000, NULL, NULL),
+(6, 6, 'transfer', '1656834475.jpg', 'Luar Kota Padang', 'Bukittinggi', 1, '2022-07-03', 130000, NULL, NULL),
+(7, 8, 'transfer', '1656910817.jpg', 'Kota Padang', 'Mega Permai 1 blok E1 nomor 7', 5, '2022-07-04', 120000, NULL, NULL),
+(8, 9, 'cod', '', 'Kota Padang', 'Kota Padang', 2, '2022-07-22', 30000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -127,6 +131,7 @@ CREATE TABLE `kurir` (
   `id_kurir` bigint(20) UNSIGNED NOT NULL,
   `nama_kurir` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `harga` bigint(20) NOT NULL,
+  `wilayah` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -135,9 +140,9 @@ CREATE TABLE `kurir` (
 -- Dumping data untuk tabel `kurir`
 --
 
-INSERT INTO `kurir` (`id_kurir`, `nama_kurir`, `harga`, `created_at`, `updated_at`) VALUES
-(1, 'A', 0, '2022-06-05 05:39:59', '2022-06-05 05:39:59'),
-(2, 'B', 0, '2022-06-05 05:40:10', '2022-06-05 05:40:10');
+INSERT INTO `kurir` (`id_kurir`, `nama_kurir`, `harga`, `wilayah`, `created_at`, `updated_at`) VALUES
+(1, 'JNE', 10000, 'Kota Padang', '2022-07-21 18:14:06', '2022-07-21 18:14:06'),
+(2, 'JNE', 30000, 'Luar Kota Padang', '2022-07-21 18:14:25', '2022-07-21 18:14:25');
 
 -- --------------------------------------------------------
 
@@ -172,6 +177,18 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `pembayaran`
 --
 
@@ -179,9 +196,9 @@ CREATE TABLE `pembayaran` (
   `id_pembayaran` bigint(20) UNSIGNED NOT NULL,
   `id_user` bigint(20) NOT NULL,
   `id_persediaan` bigint(20) NOT NULL,
-  `id_kurir` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `kode_barang` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dikonfirmasi` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_kurir` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kode_barang` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dikonfirmasi` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -192,12 +209,7 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`id_pembayaran`, `id_user`, `id_persediaan`, `id_kurir`, `kode_barang`, `dikonfirmasi`, `status`, `created_at`, `updated_at`) VALUES
-(1, 2, 2, '', 'A002', 'Admin', 'sampai', '2022-07-02 03:37:31', '2022-07-03 00:39:53'),
-(2, 2, 1, '', 'A001', 'pending', 'pending', '2022-07-02 03:37:31', '2022-07-02 03:37:31'),
-(3, 2, 2, '', 'A002', 'Admin', 'sampai', '2022-07-03 07:38:14', '2022-07-03 00:39:45'),
-(4, 2, 1, '', 'A001', 'Admin', 'sampai', '2022-07-03 07:38:15', '2022-07-03 00:39:49'),
-(5, 2, 2, '', 'A002', 'Admin', 'sampai', '2022-07-03 07:47:55', '2022-07-03 00:50:14'),
-(6, 2, 1, '', 'A001', 'Admin', 'sampai', '2022-07-03 07:47:55', '2022-07-03 00:50:18');
+(9, 2, 1, '1', 'A001', 'Admin', 'sampai', '2022-07-22 02:54:15', '2022-07-21 20:06:10');
 
 -- --------------------------------------------------------
 
@@ -210,8 +222,8 @@ CREATE TABLE `pemesanan` (
   `id_user` bigint(20) NOT NULL,
   `id_persediaan` bigint(20) NOT NULL,
   `kode_barang` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kuantiti` int(4) NOT NULL,
-  `status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kuantiti` bigint(20) NOT NULL,
+  `status` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -226,9 +238,9 @@ CREATE TABLE `persediaan` (
   `id_persediaan` bigint(20) UNSIGNED NOT NULL,
   `id_user` bigint(20) NOT NULL,
   `kode_barang` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `persediaan` int(4) NOT NULL,
-  `harga` int(8) NOT NULL,
-  `diskon` int(11) NOT NULL,
+  `persediaan` int(11) NOT NULL,
+  `harga` bigint(20) NOT NULL,
+  `diskon` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -238,8 +250,8 @@ CREATE TABLE `persediaan` (
 --
 
 INSERT INTO `persediaan` (`id_persediaan`, `id_user`, `kode_barang`, `persediaan`, `harga`, `diskon`, `created_at`, `updated_at`) VALUES
-(1, 1, 'A001', 58, 10000, 0, '2022-06-03 09:39:16', '2022-07-03 07:47:31'),
-(2, 1, 'A002', 123, 24000, 0, '2022-06-05 05:34:53', '2022-07-03 07:47:23');
+(1, 1, 'A001', 56, 10000, 0, '2022-06-03 09:39:16', '2022-07-22 01:50:26'),
+(2, 1, 'A002', 116, 24000, 0, '2022-06-05 05:34:53', '2022-07-21 17:58:59');
 
 -- --------------------------------------------------------
 
@@ -249,11 +261,13 @@ INSERT INTO `persediaan` (`id_persediaan`, `id_user`, `kode_barang`, `persediaan
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `foto` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'admin.jpg',
-  `status` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `foto` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'admin.jpg',
+  `status` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -262,10 +276,10 @@ CREATE TABLE `users` (
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `password`, `foto`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'admin', '$2y$10$PbBoyTkSCq63QyC3jyQq3eH2xvdTFm3le4pLQYGGSOCbj836GJAjW', 'admin.jpg', 'admin', NULL, NULL),
-(2, 'Pelanggan', 'pelanggan', '$2y$10$XRPLloOv0Pov/P19nCxUP.reOP5yoInvZJCFr93I5995THRlQ1gAi', 'admin.jpg', 'user', '2022-06-03 09:40:02', '2022-06-03 09:40:02'),
-(3, 'karyawan', 'karyawan', '$2y$10$o7MHjmHRx.56ltnwRda74O0eANTMMOLVMcrVnOT180JSIVHffxVgy', 'admin.jpg', 'karyawan', '2022-06-05 05:35:52', '2022-06-05 05:35:52');
+INSERT INTO `users` (`id`, `name`, `username`, `email_verified_at`, `password`, `foto`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', 'admin', NULL, '$2y$10$PbBoyTkSCq63QyC3jyQq3eH2xvdTFm3le4pLQYGGSOCbj836GJAjW', 'admin.jpg', 'admin', NULL, NULL, NULL),
+(2, 'Pelanggan', 'pelanggan', NULL, '$2y$10$XRPLloOv0Pov/P19nCxUP.reOP5yoInvZJCFr93I5995THRlQ1gAi', 'admin.jpg', 'user', NULL, '2022-06-03 09:40:02', '2022-06-03 09:40:02'),
+(3, 'karyawan', 'karyawan', NULL, '$2y$10$o7MHjmHRx.56ltnwRda74O0eANTMMOLVMcrVnOT180JSIVHffxVgy', 'admin.jpg', 'karyawan', NULL, '2022-06-05 05:35:52', '2022-06-05 05:35:52');
 
 --
 -- Indexes for dumped tables
@@ -282,6 +296,12 @@ ALTER TABLE `alamat`
 --
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`id_barang`);
+
+--
+-- Indeks untuk tabel `detail_pembayaran`
+--
+ALTER TABLE `detail_pembayaran`
+  ADD PRIMARY KEY (`id_detail_pembayaran`);
 
 --
 -- Indeks untuk tabel `failed_jobs`
@@ -301,6 +321,12 @@ ALTER TABLE `kurir`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
 
 --
 -- Indeks untuk tabel `pembayaran`
@@ -344,6 +370,12 @@ ALTER TABLE `barang`
   MODIFY `id_barang` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT untuk tabel `detail_pembayaran`
+--
+ALTER TABLE `detail_pembayaran`
+  MODIFY `id_detail_pembayaran` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -365,13 +397,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_pembayaran` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id_pemesanan` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_pemesanan` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `persediaan`
